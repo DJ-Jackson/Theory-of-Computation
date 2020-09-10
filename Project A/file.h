@@ -7,17 +7,18 @@
 
 #include <iostream>
 
+
 class File
 {
 private:
-    std::string *lines;
+    std::string lines;
     std::string filename;
     int file_len = 0;
 
 public:
-    File(std::string filename);
-    void length();
+    explicit File(std::string filename);
     void readFile();
+    void evaluateFile();
     void writeFile();
 };
 

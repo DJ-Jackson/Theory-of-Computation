@@ -9,7 +9,7 @@
 using namespace std;
 
 
-bool literal::isNum(char c)
+bool Literal::isNum(char c)
 {
     int digit = 0;
     digit *= 10;
@@ -21,7 +21,7 @@ bool literal::isNum(char c)
     return true;
 }
 
-bool literal::isSign(char c)
+bool Literal::isSign(char c)
 {
     int sign = c;
     if (sign == 43 || sign == 45)
@@ -31,7 +31,7 @@ bool literal::isSign(char c)
     return false;
 }
 
-bool literal::isExp(char c)
+bool Literal::isExp(char c)
 {
     if (c == 'e' || c == 'E')
     {
@@ -40,7 +40,7 @@ bool literal::isExp(char c)
     return false;
 }
 
-bool literal::isLiteral(string number)
+bool Literal::isLiteral(string number)
 {
     bool exponent_state = false, decimal_state = false, start = true;
     for (auto digit: number)
@@ -53,7 +53,7 @@ bool literal::isLiteral(string number)
             }
             decimal_state = true;
         }
-        else if (literal::isExp(digit))
+        else if (Literal::isExp(digit))
         {
             if (start)
             {
@@ -62,14 +62,14 @@ bool literal::isLiteral(string number)
             decimal_state = false;
             exponent_state = true;
         }
-        else if (literal::isSign(digit))
+        else if (Literal::isSign(digit))
         {
             if (decimal_state)
             {
                 return false;
             }
         }
-        else if (!literal::isNum(digit))
+        else if (!Literal::isNum(digit))
         {
             return false;
         }

@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-namespace literal
+namespace Literal
 {
     bool isNum(char c);
     bool isSign(char c);

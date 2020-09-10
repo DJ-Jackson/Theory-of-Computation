@@ -1,14 +1,9 @@
-#include "numliteral.h"
-#include <iostream>
+#include "file.h"
 using namespace std;
-using namespace literal;
+
 
 int main()
 {
-    string number[] = {"+1.0", "e5", "0", "a-3.5E6"};
-    for (auto num: number)
-    {
-        cout << "Test: " << num << endl;
-        cout << "Result: " << isLiteral(num) << endl << endl;
-    }
+    File test("C:\\Users\\djjac\\Desktop\\Theory of Computation\\Project A\\test.txt");
+    test.evaluateFile();
 }
