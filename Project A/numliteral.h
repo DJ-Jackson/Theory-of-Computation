@@ -12,7 +12,7 @@ namespace Literal
     bool isNum(char c);
     bool isSign(char c);
     bool isExp(char c);
-    bool isLiteral(std::string number);
+    std::string isLiteral(const std::string& number);
 }
 
 #endif //PROJECT_A_NUMLITERAL_H

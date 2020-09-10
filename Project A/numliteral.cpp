@@ -40,7 +40,7 @@ bool Literal::isExp(char c)
     return false;
 }
 
-bool Literal::isLiteral(string number)
+std::string Literal::isLiteral(const string& number)
 {
     bool exponent_state = false, decimal_state = false, start = true;
     for (auto digit: number)
@@ -49,7 +49,7 @@ bool Literal::isLiteral(string number)
         {
             if (exponent_state)
             {
-                return false;
+                return "is NOT a valid numeric literal";
             }
             decimal_state = true;
         }
@@ -57,7 +57,7 @@ bool Literal::isLiteral(string number)
         {
             if (start)
             {
-                return false;
+                return "is NOT a valid numeric literal";
             }
             decimal_state = false;
             exponent_state = true;
@@ -66,17 +66,17 @@ bool Literal::isLiteral(string number)
         {
             if (decimal_state)
             {
-                return false;
+                return "is NOT a valid numeric literal";
             }
         }
         else if (!Literal::isNum(digit))
         {
-            return false;
+            return "is NOT a valid numeric literal";
         }
         if (start)
         {
             start = false;
         }
     }
-    return true;
+    return "is a valid numeric literal";
 }

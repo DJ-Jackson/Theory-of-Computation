@@ -60,9 +60,54 @@ void File::evaluateFile()
         cout << "Result: " << curr->result << endl;
         curr = curr->next;
     }
-
+    curr->next = nullptr;
 }
 
-void File::writeFile() {
+int File::largestStr()
+{
+    output_ptr curr = all_lines;
+    int largest{}, temp;
+    while (curr)
+    {
+        temp = curr->number.length();
+        if (temp > largest)
+        {
+            largest = temp;
+        }
+        curr->size = temp;
+        curr = curr->next;
+    }
+    return largest;
+}
 
+void File::writeFile()
+{
+    fstream literal_file(filename);
+    if (literal_file)
+    {
+        output_ptr curr = all_lines;
+        int difference, tabs, spaces;
+        string line{};
+        auto largest = File::largestStr() + 8;
+        while (curr)
+        {
+            difference = largest - curr->size;
+            tabs = difference / 4;
+            spaces = difference % 4;
+            line = curr->number;
+            for (int i = 0; i < tabs; i++)
+            {
+                line += TAB;
+            }
+            for (int i = 0; i < spaces; i ++)
+            {
+                line += " ";
+            }
+            line += curr->result + "\n";
+            cout << line;
+            literal_file << line;
+            curr = curr->next;
+        }
+        literal_file.close();
+    }
 }

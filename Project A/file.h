@@ -14,7 +14,8 @@ private:
     struct Output
     {
         std::string number;
-        bool result;
+        std::string result;
+        int size;
         Output* next;
     };
 
@@ -28,6 +29,7 @@ public:
     explicit File(std::string filename);
     void readFile();
     void evaluateFile();
+    int largestStr();
     void writeFile();
 };
 
