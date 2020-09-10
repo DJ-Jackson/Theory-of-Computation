@@ -11,7 +11,16 @@
 class File
 {
 private:
-    std::string lines;
+    struct Output
+    {
+        std::string number;
+        bool result;
+        Output* next;
+    };
+
+    typedef Output* output_ptr;
+    output_ptr all_lines;
+
     std::string filename;
     int file_len = 0;
 
