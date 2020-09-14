@@ -4,7 +4,13 @@ using namespace std;
 
 int main()
 {
-    File test("C:\\Users\\djjac\\Desktop\\Theory of Computation\\Project A\\test.txt");
-    test.evaluateFile();
-    test.writeFile();
+    string test_cases[] = {"tests/1.txt", "tests/2.txt", "tests/3.txt", "tests/4.txt"};
+    for (const auto& cases: test_cases)
+    {
+        File test(cases);
+        test.readFile();
+        test.evaluateFile();
+        test.writeFile();
+    }
+
 }

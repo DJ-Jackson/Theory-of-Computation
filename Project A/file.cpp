@@ -18,12 +18,20 @@ File::File(std::string filename)
     all_lines = nullptr;
 }
 
+void File::addLine(std::string line, output_ptr &curr)
+{
+    auto temp = new Output;
+    temp->number = line;
+    temp->next = nullptr;
+    curr = temp;
+}
+
 void File::readFile()
 {
     string temp{};
     auto curr = new Output;
     curr->next = new Output;
-    curr->result = false;
+    curr->result = "";
     curr->number = "";
     auto curr_head = new Output;
     curr_head = nullptr;
@@ -34,15 +42,19 @@ void File::readFile()
     {
         while (getline(literal_file, temp))
         {
-            curr->number = temp;
+            File::addLine(temp, curr);
             if (!curr_head)
             {
                 curr_head = curr;
             }
+            cout << "Curr: " << curr << endl;
+            cout << TAB << "Test: " << curr->number << endl;
+            cout << TAB << "Result: " << curr->result << endl;
+            cout << TAB << "Next: " << curr->next << endl;
             curr = curr->next;
-            curr->next = new Output;
             file_len++;
         }
+        curr = nullptr;
         all_lines = curr_head;
         literal_file.close();
         cout << "Closed\n";
@@ -51,16 +63,16 @@ void File::readFile()
 
 void File::evaluateFile()
 {
-    File::readFile();
     output_ptr curr = all_lines;
-    while (curr->next->next)
+    while (curr)
     {
         curr->result = isLiteral(curr->number);
-        cout << "Test: " << curr->number << endl;
-        cout << "Result: " << curr->result << endl;
+        cout << "Curr: " << curr << endl;
+        cout << TAB << "Test: " << curr->number << endl;
+        cout << TAB << "Result: " << curr->result << endl;
+        cout << TAB << "Next: " << curr->next << endl;
         curr = curr->next;
     }
-    curr->next = nullptr;
 }
 
 int File::largestStr()
@@ -89,8 +101,10 @@ void File::writeFile()
         int difference, tabs, spaces;
         string line{};
         auto largest = File::largestStr() + 8;
+        cout << "Writing to file " << filename << "..." << endl;
         while (curr)
         {
+            cout << "Curr >> " << curr->number << endl;
             difference = largest - curr->size;
             tabs = difference / 4;
             spaces = difference % 4;
@@ -109,5 +123,6 @@ void File::writeFile()
             curr = curr->next;
         }
         literal_file.close();
+        cout << "Finished writing to file.\n\n";
     }
 }

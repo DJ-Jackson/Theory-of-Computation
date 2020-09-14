@@ -27,6 +27,7 @@ private:
 
 public:
     explicit File(std::string filename);
+    void addLine(std::string line, output_ptr &curr);
     void readFile();
     void evaluateFile();
     int largestStr();
