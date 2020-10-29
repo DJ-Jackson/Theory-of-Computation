@@ -8,54 +8,33 @@
 #include "numliteral.h"
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
 using namespace Literal;
 
 
-File::File(std::string filename)
+File::File(string filename)
 {
-    this->filename = filename;
-    all_lines = nullptr;
-}
-
-void File::addLine(std::string line, output_ptr &curr)
-{
-    auto temp = new Output;
-    temp->number = line;
-    temp->next = nullptr;
-    curr = temp;
+    this->readname = filename;
+    const char* write_end = "_output.txt";
+    writename = filename + write_end;
+    cout << "Write File Name " << writename << ".\n";
 }
 
 void File::readFile()
 {
     string temp{};
-    auto curr = new Output;
-    curr->next = new Output;
-    curr->result = "";
-    curr->number = "";
-    auto curr_head = new Output;
-    curr_head = nullptr;
     fstream literal_file;
-    cout << "Opening " << filename << "...\n";
-    literal_file.open(filename);
+    cout << "Opening " << readname << "...\n";
+    literal_file.open(readname);
     if (literal_file)
     {
         while (getline(literal_file, temp))
         {
-            File::addLine(temp, curr);
-            if (!curr_head)
-            {
-                curr_head = curr;
-            }
-            cout << "Curr: " << curr << endl;
-            cout << TAB << "Test: " << curr->number << endl;
-            cout << TAB << "Result: " << curr->result << endl;
-            cout << TAB << "Next: " << curr->next << endl;
-            curr = curr->next;
+            cout << temp << endl;
+            all_lines.push_back(temp);
             file_len++;
         }
-        curr = nullptr;
-        all_lines = curr_head;
         literal_file.close();
         cout << "Closed\n";
     }
@@ -63,64 +42,62 @@ void File::readFile()
 
 void File::evaluateFile()
 {
-    output_ptr curr = all_lines;
-    while (curr)
+    string result;
+    for (const auto& number: all_lines)
     {
-        curr->result = isLiteral(curr->number);
-        cout << "Curr: " << curr << endl;
-        cout << TAB << "Test: " << curr->number << endl;
-        cout << TAB << "Result: " << curr->result << endl;
-        cout << TAB << "Next: " << curr->next << endl;
-        curr = curr->next;
+        result = isLiteral(number);
+        cout << "Result for " << number << " -> " << result << endl;
+        all_results.push_back(result);
     }
+    cout << endl;
 }
 
-int File::largestStr()
+void File::largestStr()
 {
-    output_ptr curr = all_lines;
-    int largest{}, temp;
-    while (curr)
+    int temp;
+    for (const auto& number: all_lines)
     {
-        temp = curr->number.length();
+        temp = number.length();
+        cout << "The length for " << number << " -> " << temp << endl;
         if (temp > largest)
         {
             largest = temp;
         }
-        curr->size = temp;
-        curr = curr->next;
     }
-    return largest;
+    cout << endl;
+    largest += 8;
 }
 
 void File::writeFile()
 {
-    fstream literal_file(filename);
+    fstream literal_file;
+    literal_file.open(writename, fstream::out);
+    cout << "yer\n\n";
     if (literal_file)
     {
-        output_ptr curr = all_lines;
-        int difference, tabs, spaces;
-        string line{};
-        auto largest = File::largestStr() + 8;
-        cout << "Writing to file " << filename << "..." << endl;
-        while (curr)
+        int difference, tabs, spaces, size = all_lines.size();
+        string line{}, number, result;
+        cout << "Writing to file " << writename << "..." << endl;
+        for (int i = 0; i < size; i++)
         {
-            cout << "Curr >> " << curr->number << endl;
-            difference = largest - curr->size;
+            number = all_lines[i];
+            result = all_results[i];
+            cout << "Curr >> " << number << endl;
+            difference = largest - number.size();
             tabs = difference / 4;
             spaces = difference % 4;
-            line = curr->number;
-            for (int i = 0; i < tabs; i++)
+            line = number;
+            for (int j = 0; j < tabs; j++)
             {
                 line += TAB;
             }
-            for (int i = 0; i < spaces; i ++)
+            for (int j = 0; j < spaces; j ++)
             {
                 line += " ";
             }
-            line += curr->result + "\n";
+            line += result + "\n";
             cout << line;
             literal_file << line;
-            curr = curr->next;
         }
         literal_file.close();
         cout << "Finished writing to file.\n\n";

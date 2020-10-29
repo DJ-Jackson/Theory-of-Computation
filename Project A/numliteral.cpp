@@ -42,12 +42,13 @@ bool Literal::isExp(char c)
 
 std::string Literal::isLiteral(const string& number)
 {
-    bool exponent_state = false, decimal_state = false, start = true;
+    cout << "Number -> " << number << endl;
+    bool exponent_state{false}, decimal_state{false}, start{true}, number_state{false};
     for (auto digit: number)
     {
         if (digit == '.')
         {
-            if (exponent_state)
+            if (exponent_state || decimal_state)
             {
                 return "is NOT a valid numeric literal";
             }
@@ -55,12 +56,13 @@ std::string Literal::isLiteral(const string& number)
         }
         else if (Literal::isExp(digit))
         {
-            if (start)
+            if (start || exponent_state || !number_state)
             {
                 return "is NOT a valid numeric literal";
             }
             decimal_state = false;
             exponent_state = true;
+            number_state = false;
         }
         else if (Literal::isSign(digit))
         {
@@ -73,10 +75,21 @@ std::string Literal::isLiteral(const string& number)
         {
             return "is NOT a valid numeric literal";
         }
+        else
+        {
+            if (!number_state)
+            {
+                number_state = true;
+            }
+        }
         if (start)
         {
             start = false;
         }
+    }
+    if (exponent_state & !number_state)
+    {
+        return "is NOT a valid numeric literal";
     }
     return "is a valid numeric literal";
 }

@@ -10,6 +10,7 @@ int main()
         File test(cases);
         test.readFile();
         test.evaluateFile();
+        test.largestStr();
         test.writeFile();
     }
 
