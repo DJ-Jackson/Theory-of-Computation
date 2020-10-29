@@ -47,7 +47,7 @@ std::string Literal::isLiteral(const string& number)
     {
         if (digit == '.')
         {
-            if (exponent_state || decimal_state)
+            if (exponent_state || decimal_state || !number_state)
             {
                 return "is NOT a valid numeric literal";
             }
@@ -65,7 +65,7 @@ std::string Literal::isLiteral(const string& number)
         }
         else if (Literal::isSign(digit))
         {
-            if (decimal_state)
+            if (decimal_state || number_state || (!start & !exponent_state))
             {
                 return "is NOT a valid numeric literal";
             }
@@ -86,7 +86,7 @@ std::string Literal::isLiteral(const string& number)
             start = false;
         }
     }
-    if (exponent_state & !number_state)
+    if ((exponent_state & !number_state) || !number_state)
     {
         return "is NOT a valid numeric literal";
     }
