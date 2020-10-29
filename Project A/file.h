@@ -18,7 +18,7 @@ private:
     int largest{}, file_len = 0;
 
 public:
-    explicit File(std::string filename);
+    explicit File(const std::string& filename);
 
     void readFile();
     void evaluateFile();

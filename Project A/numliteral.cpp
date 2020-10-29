@@ -42,7 +42,6 @@ bool Literal::isExp(char c)
 
 std::string Literal::isLiteral(const string& number)
 {
-    cout << "Number -> " << number << endl;
     bool exponent_state{false}, decimal_state{false}, start{true}, number_state{false};
     for (auto digit: number)
     {
