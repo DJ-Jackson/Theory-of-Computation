@@ -1,0 +1,6 @@
+.1.0.2         is NOT a valid numeric literal
+36eE66         is NOT a valid numeric literal
+4.5E6.5        is NOT a valid numeric literal
+E              is NOT a valid numeric literal
+-E             is NOT a valid numeric literal
+3.1e           is NOT a valid numeric literal

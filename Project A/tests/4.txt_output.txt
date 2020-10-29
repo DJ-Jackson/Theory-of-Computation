@@ -1,0 +1,9 @@
+88                     is a valid numeric literal
+jac                    is NOT a valid numeric literal
+gu67wsary'87958        is NOT a valid numeric literal
+1355eE                 is NOT a valid numeric literal
+EeE34                  is NOT a valid numeric literal
++EeEe                  is NOT a valid numeric literal
+-E3                    is NOT a valid numeric literal
++e3E                   is NOT a valid numeric literal
+-1E                    is NOT a valid numeric literal
