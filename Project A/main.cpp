@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string test_cases[] = {"tests/1.txt", "tests/2.txt", "tests/3.txt", "tests/4.txt"};
+    string test_cases[] = {"tests/ng_test.txt"};
     for (const auto& cases: test_cases)
     {
         File test(cases);
