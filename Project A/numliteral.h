@@ -5,4 +5,14 @@
 #ifndef PROJECT_A_NUMLITERAL_H
 #define PROJECT_A_NUMLITERAL_H
 
+#include <iostream>
+
+namespace Literal
+{
+    bool isNum(char c);
+    bool isSign(char c);
+    bool isExp(char c);
+    std::string isLiteral(const std::string& number);
+}
+
 #endif //PROJECT_A_NUMLITERAL_H

@@ -6,18 +6,23 @@
 #define PROJECT_A_FILE_H
 
 #include <iostream>
+#include <vector>
+
 
 class File
 {
 private:
-    std::string *lines;
-    std::string filename;
-    int file_len = 0;
+    std::vector<std::string> all_lines;
+    std::vector<std::string> all_results;
+    std::string readname, writename;
+    int largest{}, file_len = 0;
 
 public:
-    File(std::string filename);
-    void length();
+    explicit File(std::string filename);
+
     void readFile();
+    void evaluateFile();
+    void largestStr();
     void writeFile();
 };
 

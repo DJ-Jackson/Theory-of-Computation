@@ -1,14 +1,17 @@
-#include "numliteral.h"
-#include <iostream>
+#include "file.h"
 using namespace std;
-using namespace literal;
+
 
 int main()
 {
-    string number[] = {"+1.0", "e5", "0", "a-3.5E6"};
-    for (auto num: number)
+    string test_cases[] = {"tests/1.txt", "tests/2.txt", "tests/3.txt", "tests/4.txt"};
+    for (const auto& cases: test_cases)
     {
-        cout << "Test: " << num << endl;
-        cout << "Result: " << isLiteral(num) << endl << endl;
+        File test(cases);
+        test.readFile();
+        test.evaluateFile();
+        test.largestStr();
+        test.writeFile();
     }
+
 }
